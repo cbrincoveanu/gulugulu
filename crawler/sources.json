@@ -1,0 +1,135 @@
+{
+  "feeds": [
+    "https://www.cbrincoveanu.com/index.xml"
+  ],
+  "sites": [
+    {
+      "url": "https://wiby.me/",
+      "crawl_depth": [0]
+    },
+    {
+      "url": "https://512kb.club/",
+      "crawl_depth": [0, 1]
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/arts-fashion",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/business-economics",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/culture-society",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/education-learning",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/food",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/fun",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/gaming",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/health",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/history",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/home-living",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/internet-software",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/literature",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/music",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/nature-animals",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/other",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/philosophy",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/science-math",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/sports",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/technology",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    },
+    {
+      "url": "https://cloudhiker.net/best-websites/tv-movies",
+      "crawl_depth": [1],
+      "follow_internal": false,
+      "follow_external": true
+    }
+  ]
+}

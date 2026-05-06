@@ -1,0 +1,6 @@
+requests
+beautifulsoup4
+feedparser
+openai
+python-dotenv
+# concurrent.futures is part of the standard library
