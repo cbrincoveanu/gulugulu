@@ -53,6 +53,8 @@ python3 crawler/crawler.py
 
 The crawler can use a local LLM (via OpenAI-compatible APIs like Ollama or LM Studio) to filter sites and generate optimized descriptions. Configure `OPENAI_API_BASE` in `crawler/.env` to enable this feature.
 
+The crawler assigns a **Quality Score** (1-100) to each site. The final `index.json` is automatically limited to the top 10,000 items to ensure optimal frontend performance.
+
 ### Running with Docker
 
 You can run the crawler in a container. To ensure the generated `index.json` is saved to your host machine, mount the `frontend` directory and pass the environment variables:

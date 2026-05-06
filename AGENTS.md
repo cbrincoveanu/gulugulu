@@ -30,3 +30,8 @@ Gulugulu is a minimalist, anti-SEO search engine designed to surface the "Old We
 
 - **Relative Paths**: The crawler script must correctly target `../frontend/index.json`.
 - **Deduplication**: The crawler must prevent duplicate URLs in `index.json`.
+- **Global BFS**: The crawler uses a global Breadth-First Search queue to discover sites broadly before going deep.
+- **Decoupled Discovery with Backpressure**: Separate thread pools for network fetching (`MAX_CONCURRENT_FETCH`) and LLM processing (`MAX_CONCURRENT_LLM`). Fetchers are throttled if the LLM queue is too long to prevent excessive memory usage.
+- **Persistence & Resumption**: Results are periodically saved to `progress.jsonl`. On startup, the crawler loads this file to resume progress and skip already processed URLs.
+- **Quality Scaling**: The crawler uses an LLM to assign a `quality_score` (1-100). The final `index.json` is limited to the top 10,000 items (configurable via `MAX_INDEX_SIZE`) sorted by this score.
+- **Enhanced Keywords**: The LLM is forced to output 5-7 specific conceptual tags to improve Fuse.js search matching.
