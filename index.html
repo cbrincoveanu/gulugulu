@@ -298,7 +298,8 @@
                 indexData = data;
                 fuse = new Fuse(data, {
                     keys: ['title', 'description', 'keywords'],
-                    threshold: 0.3
+                    threshold: 0.1,
+                    ignoreLocation: true
                 });
 
                 // Check for query parameter on load
