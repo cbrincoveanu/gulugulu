@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gulugulu - The Anti-SEO Search Engine</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta name="description" content="Gulugulu is a minimalist, signal-rich search engine designed to surface the 'Old Web' and avoid AI-generated SEO spam.">
+    <meta name="keywords" content="search engine, old web, anti-seo, minimalist, privacy, curation">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cbrincoveanu.github.io/gulugulu/">
+    <meta property="og:title" content="Gulugulu - The Anti-SEO Search Engine">
+    <meta property="og:description" content="Surface the 'Old Web'. Signal-rich, unoptimized, and brutally simple.">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Gulugulu - The Anti-SEO Search Engine">
+    <meta property="twitter:description" content="Surface the 'Old Web'. Signal-rich, unoptimized, and brutally simple.">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #202124;
+        }
+
+        /* Layout */
+        .app-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .search-wrapper {
+            width: 100%;
+            max-width: 900px;
+        }
+        @media (min-width: 768px) {
+            .search-wrapper {
+                width: 600px;
+            }
+        }
+
+        /* Home View Defaults */
+        .home-view .app-wrapper {
+            padding-top: 10vh;
+        }
+        .home-view .logo-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        .home-view .logo-svg {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+        }
+        .home-view .search-wrapper {
+            text-align: center;
+        }
+        .home-view .input-group {
+            max-width: 100%;
+        }
+        .home-view .results-area {
+            display: none;
+        }
+
+        /* Results View */
+        .results-view .app-wrapper {
+            align-items: flex-start;
+            padding: 20px;
+        }
+        .results-view .top-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+        .results-view .logo-container {
+            margin-right: 15px;
+            margin-bottom: 0;
+        }
+        .results-view .logo-svg {
+            width: 120px;
+            height: auto;
+            cursor: pointer;
+        }
+        .results-view .search-wrapper {
+            flex: 1 1 400px;
+        }
+        .results-view .input-group {
+            max-width: 100%;
+        }
+        .results-view .lucky-btn {
+            display: none;
+        }
+        .results-view .results-area {
+            margin-left: 0;
+            padding-left: 0;
+            max-width: 650px;
+        }
+        @media (min-width: 768px) {
+            .results-view .results-area {
+                margin-left: 135px;
+            }
+        }
+
+        /* Shared Search Bar Styles */
+        .search-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .input-group {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+        #search-input {
+            width: 100%;
+            min-width: 0; /* Allows shrinking in flex */
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px 0 0 24px;
+            outline: none;
+            border-right: none;
+        }
+        #search-input:focus {
+            box-shadow: 0 1px 6px rgba(32,33,36,.28);
+            border-color: #dfe1e5;
+        }
+        .search-btn {
+            border-radius: 0 24px 24px 0;
+            padding: 0 20px;
+            height: 46px;
+            background-color: #f8f9fa;
+            border: 1px solid #dfe1e5;
+            cursor: pointer;
+            font-size: 14px;
+            color: #3c4043;
+        }
+        .search-btn:hover {
+            background-color: #f1f3f4;
+            border-color: #dadce0;
+        }
+        .button-row {
+            margin-top: 20px;
+        }
+        .lucky-btn {
+            background-color: #f8f9fa;
+            border: 1px solid #f8f9fa;
+            border-radius: 4px;
+            color: #3c4043;
+            font-size: 14px;
+            padding: 0 16px;
+            line-height: 27px;
+            height: 36px;
+            cursor: pointer;
+        }
+        .lucky-btn:hover {
+            box-shadow: 0 1px 1px rgba(0,0,0,.1);
+            border: 1px solid #dadce0;
+        }
+
+        /* Results Display */
+        .results-area {
+            border-top: 1px solid #ebebeb;
+            padding-top: 10px;
+            width: 100%;
+        }
+        .results-count {
+            color: #70757a;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+        .result-item {
+            margin-bottom: 26px;
+        }
+        .result-item a {
+            color: #1a0dab;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        .result-item a:hover {
+            text-decoration: underline;
+        }
+        .result-url {
+            color: #006621;
+            font-size: 0.85rem;
+            display: block;
+        }
+        .result-description {
+            color: #4d5156;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            margin-top: auto;
+            width: 100%;
+            text-align: center;
+            color: #70757a;
+            font-size: 0.8rem;
+            border-top: 1px solid #ebebeb;
+            padding: 20px 0;
+            background: #f2f2f2;
+            position: fixed;
+            bottom: 0;
+        }
+        .results-view .footer {
+            position: relative;
+            margin-top: 50px;
+            background: none;
+        }
+        .github-link {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            text-decoration: none; 
+            display: inline-block;
+        }
+
+        .github-icon {
+            width: 32px;
+            height: 32px;
+            vertical-align: middle;
+        }
+
+        .github-link:hover .github-icon {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body class="home-view">
+    <a href="https://github.com/cbrincoveanu/gulugulu" target="_blank" rel="noopener noreferrer" class="github-link">
+        <img src="github.svg" alt="GitHub Repository" class="github-icon">
+    </a>
+    <div class="app-wrapper">
+        <div class="top-bar">
+            <div class="logo-container">
+                <svg class="logo-svg" viewBox="0 0 320 92" xmlns="http://www.w3.org/2000/svg" id="logo">
+                    <text x="50%" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="60" letter-spacing="-5">
+                        <tspan fill="#4285F4">G</tspan>
+                        <tspan fill="#EA4335">u</tspan>
+                        <tspan fill="#FBBC05">l</tspan>
+                        <tspan fill="#4285F4">u</tspan>
+                        <tspan fill="#34A853">g</tspan>
+                        <tspan fill="#EA4335">u</tspan>
+                        <tspan fill="#FBBC05">l</tspan>
+                        <tspan fill="#4285F4">u</tspan>
+                    </text>
+                </svg>
+            </div>
+            <div class="search-wrapper">
+                <form id="search-form" class="search-form">
+                    <div class="input-group">
+                        <input type="text" id="search-input" placeholder="Search the Old Web..." autofocus autocomplete="off">
+                        <button type="submit" class="search-btn">Search</button>
+                    </div>
+                    <div class="button-row">
+                        <button type="button" id="lucky-button" class="lucky-btn">I'm Feeling Lucky</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="results" class="results-area"></div>
+    </div>
+
+    <div class="footer">
+        Gulugulu: The signal-rich, anti-SEO search engine.
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+    <script>
+        let fuse;
+        let indexData = [];
+        const resultsContainer = document.getElementById('results');
+        const searchInput = document.getElementById('search-input');
+        const searchForm = document.getElementById('search-form');
+        const luckyButton = document.getElementById('lucky-button');
+        const logo = document.getElementById('logo');
+
+        fetch('index.json')
+            .then(response => response.json())
+            .then(data => {
+                indexData = data;
+                fuse = new Fuse(data, {
+                    keys: ['title', 'description', 'keywords'],
+                    threshold: 0.3
+                });
+
+                // Check for query parameter on load
+                const urlParams = new URLSearchParams(window.location.search);
+                const query = urlParams.get('q');
+                if (query) {
+                    searchInput.value = query;
+                    performSearch(query, false);
+                }
+            });
+
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const query = searchInput.value.trim();
+            if (query) {
+                performSearch(query, true);
+            }
+        });
+
+        luckyButton.addEventListener('click', () => {
+            if (indexData.length > 0) {
+                const randomSite = indexData[Math.floor(Math.random() * indexData.length)];
+                window.location.href = randomSite.url;
+            }
+        });
+
+        logo.addEventListener('click', () => {
+            document.body.className = 'home-view';
+            searchInput.value = '';
+            resultsContainer.innerHTML = '';
+            history.pushState(null, '', window.location.pathname);
+        });
+
+        function performSearch(query, updateHistory) {
+            if (!query) return;
+
+            document.body.className = 'results-view';
+            if (updateHistory) {
+                const newUrl = window.location.pathname + '?q=' + encodeURIComponent(query);
+                history.pushState({q: query}, '', newUrl);
+            }
+
+            if (fuse) {
+                const results = fuse.search(query).slice(0, 15);
+                displayResults(results, indexData.length);
+            }
+        }
+
+        // Handle browser back/forward
+        window.addEventListener('popstate', (e) => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('q');
+            if (query) {
+                searchInput.value = query;
+                performSearch(query, false);
+            } else {
+                document.body.className = 'home-view';
+                searchInput.value = '';
+                resultsContainer.innerHTML = '';
+            }
+        });
+
+        function displayResults(results, totalCount) {
+            if (results.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="results-count">About 0 results found in our index of ${totalCount} sites</div>
+                    <div style="color: #70757a;">Your search did not match any documents.</div>
+                `;
+                return;
+            }
+            
+            const countHtml = `<div class="results-count">About ${results.length} results found in our index of ${totalCount} sites</div>`;
+            const itemsHtml = results.map(result => `
+                <div class="result-item">
+                    <a href="${result.item.url}">${result.item.title}</a>
+                    <span class="result-url">${result.item.url}</span>
+                    <div class="result-description">${result.item.description}</div>
+                </div>
+            `).join('');
+            
+            resultsContainer.innerHTML = countHtml + itemsHtml;
+        }
+    </script>
+</body>
+</html>
